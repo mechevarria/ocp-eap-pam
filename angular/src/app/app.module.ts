@@ -19,9 +19,9 @@ import { DataTablesModule } from 'angular-datatables';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
-import { AppMapComponent } from './app-map/app-map.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryApiService } from './in-memory-api.service';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { InMemoryApiService } from './in-memory-api.service';
     HeaderComponent,
     BreadcrumbComponent,
     SidebarComponent,
-    AppMapComponent
+    DetailComponent
   ],
   imports: [
     BrowserModule,

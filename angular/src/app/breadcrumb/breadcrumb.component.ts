@@ -1,8 +1,7 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {BreadCrumb} from './breadcrumb';
-import {distinctUntilChanged, filter, map} from 'rxjs/operators';
-
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { BreadCrumb } from './breadcrumb';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -18,15 +17,9 @@ export class BreadcrumbComponent implements OnInit {
   title = '';
 
   // Build your breadcrumb starting with the root route of your current activated route
-  constructor(private activatedRoute: ActivatedRoute,
-              private router: Router) {
-  }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
 
-  ngOnInit() {
-  }
-
-  buildBreadCrumb(route: ActivatedRoute, url: string = '',
-                  breadcrumbs: Array<BreadCrumb> = []): Array<BreadCrumb> {
+  buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: Array<BreadCrumb> = []): Array<BreadCrumb> {
     // If no routeConfig is avalailable we are on the root path
     const label = route.routeConfig ? route.routeConfig.data['breadcrumb'] : 'Home';
     const path = route.routeConfig ? route.routeConfig.path : '';
@@ -47,4 +40,6 @@ export class BreadcrumbComponent implements OnInit {
     }
     return newBreadcrumbs;
   }
+
+  ngOnInit() {}
 }

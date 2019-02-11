@@ -1,44 +1,40 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="card mb-3">
-      <div class="card-header">Leases</div>
-      <div class="card-body">
-        <div class="form-group card-text">
-          <button type="button" class="btn btn-primary mr-2" (click)="load()" [disabled]="isLoading">
-            <fa-icon [icon]="loadIcon" class="mr-2" [spin]="isLoading"></fa-icon>Load
-          </button>
-          <button type="button" class="btn btn-secondary" (click)="clear()" [disabled]="isLoading">
-            <fa-icon [icon]="clearIcon" class="mr-2"></fa-icon>Clear
-          </button>
-        </div>
-        <div class="table-responsive">
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered" width="100%">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Lease Number</th>
-                <th>Lease Name</th>
-                <th>Address</th>
-                <th>State</th>
-                <th>Annual Rent</th>
-                <th>Status</th>
-                <th>Last Update</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let lease of leases">
-                <td>{{ lease.id }}</td>
-                <td>{{ lease.leaseNumber }}</td>
-                <td>{{ lease.leaseName }}</td>
-                <td>{{ lease.address }}</td>
-                <td>{{ lease.state }}</td>
-                <td>{{ lease.annualRent | currency }}</td>
-                <td>{{ lease.status }}</td>
-                <td>{{ lease.lastUpdateDate }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+<div class="card-deck">
+  <div class="card">
+    <div class="card-header">Leases</div>
+    <div class="card-body">
+      <div class="form-group card-text">
+        <button type="button" class="btn btn-primary mr-2" (click)="load()" [disabled]="isLoading">
+          <fa-icon [icon]="loadIcon" class="mr-2" [spin]="isLoading"></fa-icon>Load
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="clear()" [disabled]="isLoading">
+          <fa-icon [icon]="clearIcon" class="mr-2"></fa-icon>Clear
+        </button>
+      </div>
+      <div class="table-responsive">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover" width="100%">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Lease Number</th>
+              <th>Lease Name</th>
+              <th>Address</th>
+              <th>State</th>
+              <th>Annual Rent</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let lease of leases" class="app-pointer" (click)="showDetail(lease.id)">
+              <td>{{ lease.id }}</td>
+              <td>{{ lease.leaseNumber }}</td>
+              <td>{{ lease.leaseName }}</td>
+              <td>{{ lease.address }}</td>
+              <td>{{ lease.state }}</td>
+              <td>{{ lease.annualRent | currency }}</td>
+              <td>{{ lease.status }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

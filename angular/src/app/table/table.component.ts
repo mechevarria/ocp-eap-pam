@@ -1,16 +1,18 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MessageService } from '../message/message.service';
 import { LeaseService } from './lease.service';
 import { Lease } from './lease';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { IconDefinition, faSync, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table',
-  templateUrl: './table.component.html'
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnDestroy, OnInit, AfterViewInit {
+export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
@@ -21,13 +23,17 @@ export class TableComponent implements OnDestroy, OnInit, AfterViewInit {
   clearIcon: IconDefinition;
   isLoading: boolean;
 
-  constructor(private messageService: MessageService, private leaseService: LeaseService) {
+  constructor(private messageService: MessageService, private leaseService: LeaseService, private router: Router) {
     this.dtOptions = {};
     this.leases = new Array();
     this.dtTrigger = new Subject();
     this.loadIcon = faSync;
     this.clearIcon = faTrashAlt;
     this.isLoading = false;
+  }
+
+  showDetail(id: number): void {
+    this.router.navigate(['/home/detail'], { queryParams: { id: id } });
   }
 
   load(): void {
@@ -44,7 +50,7 @@ export class TableComponent implements OnDestroy, OnInit, AfterViewInit {
   }
 
   rerender(): void {
-    if (this.dtElement.dtInstance) {
+    if (this.dtElement && this.dtElement.dtInstance) {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         // Destroy the table first
         dtInstance.destroy();
@@ -72,9 +78,9 @@ export class TableComponent implements OnDestroy, OnInit, AfterViewInit {
 
   ngOnInit() {
     this.dtOptions = {
-      pagingType: 'simple',
+      pagingType: 'full_numbers',
       responsive: true,
-      pageLength: 100
+      pageLength: 10
     };
   }
 
