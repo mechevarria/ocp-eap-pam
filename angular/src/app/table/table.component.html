@@ -24,14 +24,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let lease of leases" class="app-pointer" (click)="showDetail(lease.id)">
+            <!-- Putting the click handler on the row breaks responsive button expansion in mobile view-->
+            <tr *ngFor="let lease of leases" class="app-pointer">
               <td>{{ lease.id }}</td>
-              <td>{{ lease.leaseNumber }}</td>
-              <td>{{ lease.leaseName }}</td>
-              <td>{{ lease.address }}</td>
-              <td>{{ lease.state }}</td>
-              <td>{{ lease.annualRent | currency }}</td>
-              <td>{{ lease.status }}</td>
+              <td (click)="showDetail(lease.id)">{{ lease.leaseNumber }}</td>
+              <td (click)="showDetail(lease.id)">{{ lease.leaseName }}</td>
+              <td (click)="showDetail(lease.id)">{{ lease.address }}</td>
+              <td (click)="showDetail(lease.id)">{{ lease.state }}</td>
+              <td (click)="showDetail(lease.id)">{{ lease.annualRent | currency }}</td>
+              <td (click)="showDetail(lease.id)">{{ lease.status }}</td>
             </tr>
           </tbody>
         </table>

@@ -7,3 +7,4 @@ oc new-app https://github.com/mechevarria/ocp-eap-pam \
 --context-dir=angular \
 --name=angular-app
 
+oc expose svc/angular-app
