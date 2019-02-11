@@ -1,5 +1,6 @@
 package org.redhat.api.lease;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -27,21 +28,23 @@ public class LeaseService {
 		return em.find(LeaseModel.class, Long.valueOf(id));
 	}
 
-	public LeaseModel createItem(LeaseModel item) {
+	public LeaseModel createLease(LeaseModel lease) {
 
-		em.persist(item);
+		em.persist(lease);
 		em.flush();
 
-		return item;
+		return lease;
 	}
 
-	public LeaseModel updateItem(LeaseModel item) {
+	public LeaseModel updateItem(LeaseModel lease) {
+
+		lease.setLastUpdateDate(new Date(System.currentTimeMillis()));
 		
 		// find the existing item in the db
-		LeaseModel updated = em.find(LeaseModel.class, item.getId());
+		LeaseModel updated = em.find(LeaseModel.class, lease.getId());
 
 		// merge the existing model with the model passed in
-		updated = em.merge(item);
+		updated = em.merge(lease);
 
 		return updated;
 	}

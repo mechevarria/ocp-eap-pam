@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.sql.Date;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -28,6 +29,7 @@ public class LeaseModel implements Serializable {
   private int annualRent;
   private String leaseName;
   private String status;
+  private Date lastUpdateDate;
 
   // everything below is a generated getter/setter
 
@@ -36,6 +38,12 @@ public class LeaseModel implements Serializable {
   }
   public void setId(long id) {
     this.id = id;
+  }
+  public Date getLastUpdateDate() {
+    return this.lastUpdateDate;
+  }
+  public void setLastUpdateDate(Date lastUpdateDate) {
+    this.lastUpdateDate = lastUpdateDate;
   }
   public String getStatus() {
     return this.status;
