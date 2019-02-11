@@ -36,7 +36,7 @@ public class LeaseService {
 		return lease;
 	}
 
-	public LeaseModel updateItem(LeaseModel lease) {
+	public LeaseModel updateLease(LeaseModel lease) {
 
 		lease.setLastUpdateDate(new Date(System.currentTimeMillis()));
 		
@@ -49,7 +49,7 @@ public class LeaseService {
 		return updated;
 	}
 
-	public boolean deleteItem(String id) {
+	public boolean deleteLease(String id) {
 		LeaseModel toDelete = em.find(LeaseModel.class, Long.valueOf(id));
 
 		toDelete = em.merge(toDelete);

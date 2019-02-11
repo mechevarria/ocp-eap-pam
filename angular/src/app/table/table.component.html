@@ -22,6 +22,7 @@
                 <th>State</th>
                 <th>Annual Rent</th>
                 <th>Status</th>
+                <th>Last Update</th>
               </tr>
             </thead>
             <tbody>
@@ -33,6 +34,7 @@
                 <td>{{ lease.state }}</td>
                 <td>{{ lease.annualRent | currency }}</td>
                 <td>{{ lease.status }}</td>
+                <td>{{ lease.lastUpdateDate }}</td>
               </tr>
             </tbody>
           </table>

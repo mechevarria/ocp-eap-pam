@@ -21,40 +21,40 @@ public class LeaseController {
 	private LeaseService LeaseService;	
 
 	@GET
-	public List<LeaseModel> getAllItems() {
+	public List<LeaseModel> getAll() {
 				
-		List<LeaseModel> items = LeaseService.findAll();
-		return items;
+		List<LeaseModel> leases = LeaseService.findAll();
+		return leases;
 	}
 	
 	@GET
 	@Path("/{id}")
-	public LeaseModel getItem(@PathParam("id") String id) {
+	public LeaseModel getLease(@PathParam("id") String id) {
 		
-		LeaseModel item = LeaseService.findById(id);
-		return item;
+		LeaseModel lease = LeaseService.findById(id);
+		return lease;
 	}
 
 	@POST
-	public LeaseModel createItem(LeaseModel item) {
+	public LeaseModel createLease(LeaseModel lease) {
 		
-		LeaseModel savedItem = LeaseService.createItem(item);
+		LeaseModel savedItem = LeaseService.createLease(lease);
 		return savedItem;
 	}
 	
 	@PUT
-	public LeaseModel updateItem(LeaseModel item) {
+	public LeaseModel updateLease(LeaseModel lease) {
 		
-		LeaseModel updatedItem = LeaseService.updateItem(item);
+		LeaseModel updatedItem = LeaseService.updateLease(lease);
 		return updatedItem;
 	}
 	
 	@DELETE
 	@Path("/{id}")
-	public HashMap<String,Boolean> deleteItem(@PathParam("id") String id) {
+	public HashMap<String,Boolean> deleteLease(@PathParam("id") String id) {
 		
 		HashMap<String,Boolean> status = new HashMap<String,Boolean>();
-		status.put("isDeleted", LeaseService.deleteItem(id));
+		status.put("isDeleted", LeaseService.deleteLease(id));
 
 		return status;
 	}

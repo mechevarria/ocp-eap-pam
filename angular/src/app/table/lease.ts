@@ -9,4 +9,5 @@ export class Lease {
   annualRent: number;
   leaseName: string;
   status: string;
+  lastUpdateDate: Date;
 }
