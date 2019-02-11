@@ -3,10 +3,10 @@ eap/target
 .factorypath
 
 # compiled output
-/dist
-/dist-server
-/tmp
-/out-tsc
+angular/dist
+angular/dist-server
+angular/tmp
+angular/out-tsc
 
 # dependencies
 angular/node_modules
