@@ -39,6 +39,7 @@
     "@types/mapbox-gl": "^0.51.3",
     "@types/node": "^10.12.12",
     "angular-in-memory-web-api": "^0.8.0",
+    "body-parser": "^1.18.3",
     "codelyzer": "^4.5.0",
     "compression": "^1.7.3",
     "core-js": "^2.5.7",
