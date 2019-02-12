@@ -7,6 +7,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 @Stateless
 public class LeaseService {
@@ -14,13 +16,29 @@ public class LeaseService {
 	@PersistenceContext
 	private EntityManager em;
 
-	public List<LeaseModel> findAll() {
+	public List<LeaseModel> findByPage(String offset, String pageSize) {
 
 		TypedQuery<LeaseModel> query = em.createQuery("SELECT i FROM LeaseModel i", LeaseModel.class);
-		
+
+		if(offset != null) {
+			query.setFirstResult(Integer.valueOf(offset));
+		}
+
+		if(pageSize != null) {
+			query.setMaxResults(Integer.valueOf(pageSize));
+		}
+
 		List<LeaseModel> list = query.getResultList();
-		
+
 		return list;
+
+	}
+
+	public Long getCount() {
+		CriteriaBuilder qb = em.getCriteriaBuilder();
+		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
+		cq.select(qb.count(cq.from(LeaseModel.class)));
+		return em.createQuery(cq).getSingleResult();
 	}
 
 	public LeaseModel findById(String id) {
@@ -39,7 +57,7 @@ public class LeaseService {
 	public LeaseModel updateLease(LeaseModel lease) {
 
 		lease.setLastUpdateDate(new Date(System.currentTimeMillis()));
-		
+
 		// find the existing item in the db
 		LeaseModel updated = em.find(LeaseModel.class, lease.getId());
 
