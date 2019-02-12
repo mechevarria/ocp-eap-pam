@@ -48,7 +48,7 @@ public class LeaseModel implements Serializable {
   public String getStatus() {
     return this.status;
   }
-  public void setStatue(String status) {
+  public void setStatus(String status) {
     this.status = status;
   }
   public String getLeaseName() {
