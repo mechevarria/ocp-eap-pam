@@ -22,7 +22,7 @@
           </div>
           <div class="form-group">
             <label for="leaseNumber">Lease Number</label>
-            <input id="leaseNumber" name="leaseNumber" type="text" class="form-control" [(ngModel)]="lease.leaseNumber" />
+            <input id="leaseNumber" name="leaseNumber" type="text" class="form-control" [(ngModel)]="lease.leaseNumber" readonly/>
           </div>
           <div class="form-group">
             <label for="leaseName">Lease Name</label>
@@ -57,15 +57,15 @@
         <div class="card-text">
           <div class="form-group">
             <label for="address">Address</label>
-            <input id="address" name="address" type="text" class="form-control" [(ngModel)]="lease.address" />
+            <input id="address" name="address" type="text" class="form-control" [(ngModel)]="lease.address" readonly />
           </div>
           <div class="form-group">
             <label for="city">City</label>
-            <input id="city" name="city" type="text" class="form-control" [(ngModel)]="lease.city" />
+            <input id="city" name="city" type="text" class="form-control" [(ngModel)]="lease.city" readonly />
           </div>
           <div class="form-group">
             <label for="state">State</label>
-            <input id="state" name="state" type="text" class="form-control" [(ngModel)]="lease.state" />
+            <input id="state" name="state" type="text" class="form-control" [(ngModel)]="lease.state" readonly />
           </div>
           <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[lease.lon, lease.lat]">
             <mgl-marker [lngLat]="[lease.lon, lease.lat]" #marker>

@@ -19,6 +19,7 @@ export class LeaseService {
 
   getAll(offset: number, pageSize: number): Observable<any> {
     return this.http.get<any>(this.url, {
+      headers: httpOptions.headers,
       params: {
         offset: offset.toString(),
         pageSize: pageSize.toString()
@@ -31,9 +32,17 @@ export class LeaseService {
   }
 
   get(id: number): Observable<Lease> {
-    return this.http.get<Lease>(this.url + `/${id}`).pipe(
+    return this.http.get<Lease>(this.url + `/${id}`, httpOptions).pipe(
       catchError(res => {
         return this.handleError(`get(${id})`, res);
+      })
+    );
+  }
+
+  update(newLease: Lease): Observable<Lease> {
+    return this.http.put<Lease>(this.url, newLease, httpOptions).pipe(
+      catchError(res => {
+        return this.handleError('update()', res);
       })
     );
   }

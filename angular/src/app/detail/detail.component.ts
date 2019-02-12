@@ -17,15 +17,24 @@ export class DetailComponent implements OnInit {
   }
 
   update(): void {
-    this.messageService.success('Updated lease');
+    this.leaseService.update(this.lease).subscribe(res => {
+      this.lease = res;
+      if (this.lease != null) {
+        this.messageService.success(`Updated lease ${this.lease.id}`);
+      }
+    });
+  }
+
+  load(id: number): void {
+    this.leaseService.get(id).subscribe(res => {
+      this.lease = res;
+    });
   }
 
   ngOnInit() {
     this.route.queryParams.subscribe(routeParams => {
       if (routeParams.id) {
-        this.leaseService.get(routeParams.id).subscribe(res => {
-          this.lease = res;
-        });
+        this.load(routeParams.id);
       }
     });
   }
