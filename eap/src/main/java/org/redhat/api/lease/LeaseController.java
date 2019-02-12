@@ -50,9 +50,19 @@ public class LeaseController {
 	@PUT
 	public LeaseModel updateLease(LeaseModel lease) {
 
-		LeaseModel updatedItem = LeaseService.updateLease(lease);
-		return updatedItem;
+		LeaseModel updatedLease = LeaseService.updateLease(lease);
+		return updatedLease;
 	}
+
+	@PUT
+	@Path("/status")
+	public LeaseModel updateStatus(@QueryParam("id") String id, @QueryParam("status") String status) {
+		LeaseModel lease = LeaseService.findById(id);
+		lease.setStatus(status);
+
+		LeaseModel updatedLease = LeaseService.updateLease(lease);
+		return updatedLease;
+	} 
 
 	@DELETE
 	@Path("/{id}")
