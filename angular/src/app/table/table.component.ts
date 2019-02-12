@@ -1,10 +1,6 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { MessageService } from '../message/message.service';
+import { Component, OnInit } from '@angular/core';
 import { LeaseService } from './lease.service';
 import { Lease } from './lease';
-import { Subject } from 'rxjs';
-import { DataTableDirective } from 'angular-datatables';
-import { IconDefinition, faSync, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,24 +8,17 @@ import { Router } from '@angular/router';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
-
-  dtOptions: DataTables.Settings;
+export class TableComponent implements OnInit {
   leases: Lease[];
-  dtTrigger: Subject<any>;
-  loadIcon: IconDefinition;
-  clearIcon: IconDefinition;
-  isLoading: boolean;
+  pageSize: number;
+  currentPage: number;
+  count: number;
 
-  constructor(private messageService: MessageService, private leaseService: LeaseService, private router: Router) {
-    this.dtOptions = {};
+  constructor(private leaseService: LeaseService, private router: Router) {
     this.leases = new Array();
-    this.dtTrigger = new Subject();
-    this.loadIcon = faSync;
-    this.clearIcon = faTrashAlt;
-    this.isLoading = false;
+    this.currentPage = 1;
+    this.count = 0;
+    this.pageSize = 10;
   }
 
   showDetail(id: number): void {
@@ -37,54 +26,20 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   load(): void {
-    this.isLoading = true;
-    this.leaseService.getAll().subscribe(res => {
-      this.leases = res;
-      this.rerender();
+    const offset = (this.currentPage - 1) * this.pageSize;
 
-      if (this.leases != null) {
-        this.messageService.success(`Successfully loaded ${this.leases.length} leases from service`);
-      }
-      this.isLoading = false;
+    this.leaseService.getAll(offset, this.pageSize).subscribe(res => {
+      this.leases = res.leases;
+      this.count = res.count;
     });
   }
 
-  rerender(): void {
-    if (this.dtElement && this.dtElement.dtInstance) {
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first
-        dtInstance.destroy();
-
-        // Call the dtTrigger to rerender again
-        this.dtTrigger.next();
-      });
-    } else {
-      this.dtTrigger.next();
-    }
-  }
-
-  clear(): void {
-    this.leases = [];
-    this.isLoading = true;
-    this.rerender();
-    this.messageService.info('Cleared data');
-    this.isLoading = false;
-  }
-
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
+  pageChanged(event: any): void {
+    this.currentPage = event.page;
+    this.load();
   }
 
   ngOnInit() {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      responsive: true,
-      pageLength: 10
-    };
-  }
-
-  ngAfterViewInit() {
-    this.rerender();
+    this.load();
   }
 }

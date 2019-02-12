@@ -17,8 +17,13 @@ export class LeaseService {
 
   constructor(private messageService: MessageService, private http: HttpClient) {}
 
-  getAll(): Observable<Lease[]> {
-    return this.http.get<Lease[]>(this.url).pipe(
+  getAll(offset: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(this.url, {
+      params: {
+        offset: offset.toString(),
+        pageSize: pageSize.toString()
+      }
+    }).pipe(
       catchError(res => {
         return this.handleError('getAll()', res);
       })
