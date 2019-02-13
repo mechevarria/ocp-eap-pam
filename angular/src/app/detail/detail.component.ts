@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LeaseService } from '../table/lease.service';
 import { Lease } from '../table/lease';
 import { MessageService } from '../message/message.service';
+import { KieService } from './kie.service';
 
 @Component({
   selector: 'app-detail',
@@ -12,7 +13,8 @@ import { MessageService } from '../message/message.service';
 export class DetailComponent implements OnInit {
   lease: Lease;
 
-  constructor(private route: ActivatedRoute, private leaseService: LeaseService, private messageService: MessageService) {
+  // tslint:disable-next-line:max-line-length
+  constructor(private route: ActivatedRoute, private leaseService: LeaseService, private messageService: MessageService, private kieService: KieService) {
     this.lease = null;
   }
 
@@ -22,6 +24,12 @@ export class DetailComponent implements OnInit {
       if (this.lease != null) {
         this.messageService.success(`Updated lease ${this.lease.id}`);
       }
+    });
+  }
+
+  process(): void {
+    this.kieService.process(this.lease.id, this.lease.annualRent).subscribe(res => {
+      this.messageService.success(`Process instance id is ${res}`);
     });
   }
 

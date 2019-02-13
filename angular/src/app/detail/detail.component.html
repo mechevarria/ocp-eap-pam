@@ -8,7 +8,7 @@
 </div>
 <form (ngSubmit)="update()" #userForm="ngForm" *ngIf="lease != null">
   <div class="d-flex flex-row mb-3">
-    <button type="button" class="btn btn-primary ml-1 mr-2">Process</button>
+    <button type="button" class="btn btn-primary ml-1 mr-2" (click)="process()">Process</button>
     <button type="submit" class="btn btn-secondary">Update</button>
   </div>
   <div class="card-deck mb-3">
@@ -22,7 +22,7 @@
           </div>
           <div class="form-group">
             <label for="leaseNumber">Lease Number</label>
-            <input id="leaseNumber" name="leaseNumber" type="text" class="form-control" [(ngModel)]="lease.leaseNumber" readonly/>
+            <input id="leaseNumber" name="leaseNumber" type="text" class="form-control" [(ngModel)]="lease.leaseNumber" readonly />
           </div>
           <div class="form-group">
             <label for="leaseName">Lease Name</label>

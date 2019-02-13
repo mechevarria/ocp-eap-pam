@@ -12,6 +12,7 @@ let app = express();
 
 app.set('port', process.env.PORT || 8080);
 app.set('eap', process.env.EAP || 'http://eap-app:8080');
+app.set('kie', process.env.KIE || 'http://rhpam7-install-kieserver:8080');
 
 app.use(compression());
 app.use(logger('combined'));
@@ -40,6 +41,18 @@ app.use(
   '/jboss-api/*',
   proxy({
     target: app.get('eap'),
+    secure: false,
+    changeOrigin: true,
+    logLevel: 'debug',
+    onProxyReq: restream
+  })
+);
+
+// proxy to kie server
+app.use(
+  '/services/*',
+  proxy({
+    target: app.get('kie'),
     secure: false,
     changeOrigin: true,
     logLevel: 'debug',
