@@ -13,6 +13,7 @@ let app = express();
 app.set('port', process.env.PORT || 8080);
 app.set('eap', process.env.EAP || 'http://eap-app:8080');
 app.set('kie', process.env.KIE || 'http://rhpam7-install-kieserver:8080');
+app.set('3scale', process.env.SCALE || 'http://apicast-production:8080');
 
 app.use(compression());
 app.use(logger('combined'));
@@ -35,6 +36,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+// proxy to 3scale
+app.use(
+  '/3scale/*',
+  proxy({
+    target: app.get('3scale'),
+    secure: false,
+    changeOrigin: true,
+    logLevel: 'debug',
+    onProxyReq: restream,
+    pathRewrite: {
+      '^/3scale': ''
+    }
+  })
+);
 
 // proxy to eap
 app.use(
