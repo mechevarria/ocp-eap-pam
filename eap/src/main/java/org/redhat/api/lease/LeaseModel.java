@@ -30,6 +30,7 @@ public class LeaseModel implements Serializable {
   private String leaseName;
   private String status;
   private Date lastUpdateDate;
+  private int processId;
 
   // everything below is a generated getter/setter
 
@@ -38,6 +39,12 @@ public class LeaseModel implements Serializable {
   }
   public void setId(long id) {
     this.id = id;
+  }
+  public int getProcessId() {
+    return this.processId;
+  }
+  public void setProcessId(int processId) {
+    this.processId = processId;
   }
   public Date getLastUpdateDate() {
     return this.lastUpdateDate;
