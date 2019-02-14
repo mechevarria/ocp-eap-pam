@@ -39,6 +39,14 @@ public class LeaseController {
 		return lease;
 	}
 
+	@GET
+	@Path("/process/{id}")
+	public LeaseModel getLeaseByProcess(@PathParam("id") String id) {
+
+		LeaseModel lease = LeaseService.findByProcessInstanceId(id);
+		return lease;
+	}
+
 	@POST
 	public LeaseModel createLease(LeaseModel lease) {
 

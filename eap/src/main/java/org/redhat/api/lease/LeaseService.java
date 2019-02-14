@@ -20,11 +20,11 @@ public class LeaseService {
 
 		TypedQuery<LeaseModel> query = em.createQuery("SELECT i FROM LeaseModel i", LeaseModel.class);
 
-		if(offset != null) {
+		if (offset != null) {
 			query.setFirstResult(Integer.valueOf(offset));
 		}
 
-		if(pageSize != null) {
+		if (pageSize != null) {
 			query.setMaxResults(Integer.valueOf(pageSize));
 		}
 
@@ -44,6 +44,13 @@ public class LeaseService {
 	public LeaseModel findById(String id) {
 
 		return em.find(LeaseModel.class, Long.valueOf(id));
+	}
+
+	public LeaseModel findByProcessInstanceId(String processInstanceId) {
+		TypedQuery<LeaseModel> query = em.createQuery("SELECT i FROM LeaseModel i WHERE i.processInstanceId = :processInstanceId", LeaseModel.class);
+		query.setParameter("processInstanceId", Integer.valueOf(processInstanceId));
+
+		return query.getSingleResult();
 	}
 
 	public LeaseModel createLease(LeaseModel lease) {
