@@ -11,23 +11,27 @@ const headers: HttpHeaders = new HttpHeaders()
 const httpOptions = {
   headers: headers
 };
+const baseUrl = '/services/rest';
+const processId = 'RestCall.RestCall';
+const containerId = 'RestCall_1.0.0';
 
 @Injectable({
   providedIn: 'root'
 })
 export class KieService {
-  private url = '/services/rest/server/containers/RestCall_1.0.0/processes/RestCall.RestCall/instances';
 
   constructor(private messageService: MessageService, private http: HttpClient) {}
 
   process(id: number, annualRent: number): Observable<any> {
+    const url = `${baseUrl}/server/containers/${containerId}/processes/${processId}/instances`;
+
     const body = {
       id: id,
       annualRent: annualRent
     };
-    return this.http.post<any>(this.url, body, httpOptions).pipe(
+    return this.http.post<any>(url, body, httpOptions).pipe(
       catchError(res => {
-        return this.handleError('update()', res);
+        return this.handleError('process()', res);
       })
     );
   }

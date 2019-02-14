@@ -10,4 +10,5 @@ export class Lease {
   leaseName: string;
   status: string;
   lastUpdateDate: Date;
+  processInstanceId: number;
 }
