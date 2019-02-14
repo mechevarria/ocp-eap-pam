@@ -39,6 +39,19 @@ export class TableComponent implements OnInit {
     this.load();
   }
 
+  getClass(status: string): string {
+    switch (status) {
+      case 'Approved':
+        return 'badge-success';
+      case 'Rejected':
+        return 'badge-danger';
+      case 'Submitted':
+        return 'badge-info';
+      default:
+        return 'badge-secondary';
+    }
+  }
+
   ngOnInit() {
     this.load();
   }

@@ -24,7 +24,9 @@
               <td (click)="showDetail(lease.id)">{{ lease.address }}</td>
               <td (click)="showDetail(lease.id)">{{ lease.state }}</td>
               <td (click)="showDetail(lease.id)">{{ lease.annualRent | currency }}</td>
-              <td (click)="showDetail(lease.id)">{{ lease.status }}</td>
+              <td (click)="showDetail(lease.id)">
+                <span class="badge" [ngClass]="getClass(lease.status)">{{ lease.status }}</span>
+              </td>
             </tr>
           </tbody>
         </table>

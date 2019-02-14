@@ -22,6 +22,7 @@ import { InMemoryApiService } from './in-memory-api.service';
 import { DetailComponent } from './detail/detail.component';
 import { TaskComponent } from './task/task.component';
 import { ApproveComponent } from './approve/approve.component';
+import { LeaseComponent } from './lease/lease.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ApproveComponent } from './approve/approve.component';
     SidebarComponent,
     DetailComponent,
     TaskComponent,
-    ApproveComponent
+    ApproveComponent,
+    LeaseComponent
   ],
   imports: [
     BrowserModule,

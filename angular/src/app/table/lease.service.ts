@@ -24,7 +24,7 @@ export class LeaseService {
       headers: httpOptions.headers,
       params: {
         offset: offset.toString(),
-        pageSize: pageSize.toString(),
+        pageSize: pageSize.toString()
       }
     };
 
@@ -44,6 +44,14 @@ export class LeaseService {
     return this.http.get<Lease>(this.url + `/${id}`, httpOptions).pipe(
       catchError(res => {
         return this.handleError(`get(${id})`, res);
+      })
+    );
+  }
+
+  getByProcessId(id: number): Observable<Lease> {
+    return this.http.get<Lease>(this.url + `/process/${id}`, httpOptions).pipe(
+      catchError(res => {
+        return this.handleError(`getByProcessId(${id})`, res);
       })
     );
   }
