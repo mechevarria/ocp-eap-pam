@@ -20,6 +20,8 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryApiService } from './in-memory-api.service';
 import { DetailComponent } from './detail/detail.component';
+import { TaskComponent } from './task/task.component';
+import { ApproveComponent } from './approve/approve.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { DetailComponent } from './detail/detail.component';
     HeaderComponent,
     BreadcrumbComponent,
     SidebarComponent,
-    DetailComponent
+    DetailComponent,
+    TaskComponent,
+    ApproveComponent
   ],
   imports: [
     BrowserModule,

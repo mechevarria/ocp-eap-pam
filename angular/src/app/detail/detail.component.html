@@ -6,10 +6,9 @@
     </div>
   </div>
 </div>
-<form (ngSubmit)="update()" #userForm="ngForm" *ngIf="lease != null">
+<form (ngSubmit)="process()" #userForm="ngForm" *ngIf="lease != null">
   <div class="d-flex flex-row mb-3">
-    <button type="button" class="btn btn-primary ml-1 mr-2" (click)="process()">Process</button>
-    <button type="submit" class="btn btn-secondary mr-2">Update</button>
+    <button type="submit" class="btn btn-primary ml-1 mr-2" [disabled]="lease.status === 'Submitted'">Submit</button>
   </div>
   <div class="card-deck mb-3">
     <div class="card">
@@ -26,7 +25,7 @@
           </div>
           <div class="form-group">
             <label for="leaseName">Lease Name</label>
-            <input id="leaseName" name="leaseName" type="text" class="form-control" [(ngModel)]="lease.leaseName" />
+            <input id="leaseName" name="leaseName" type="text" class="form-control" [(ngModel)]="lease.leaseName" readonly />
           </div>
           <div class="form-group">
             <label for="annualRent">Annual Rent</label>
@@ -34,7 +33,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">$</span>
               </div>
-              <input id="annualRent" name="annualRent" type="text" class="form-control" [(ngModel)]="lease.annualRent" />
+              <input id="annualRent" name="annualRent" type="text" class="form-control" [(ngModel)]="lease.annualRent" readonly />
               <div class="input-group-append">
                 <span class="input-group-text">.00</span>
               </div>
@@ -42,7 +41,7 @@
           </div>
           <div class="form-group">
             <label for="status">Status</label>
-            <input id="status" name="status" type="text" class="form-control" [(ngModel)]="lease.status" />
+            <input id="status" name="status" type="text" class="form-control" [(ngModel)]="lease.status" readonly />
           </div>
           <div class="form-group">
             <label for="lastUpdateDate">Last Updated</label>

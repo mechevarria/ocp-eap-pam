@@ -17,14 +17,23 @@ export class LeaseService {
 
   constructor(private messageService: MessageService, private http: HttpClient) {}
 
-  getAll(offset: number, pageSize: number): Observable<any> {
-    return this.http.get<any>(this.url, {
+  getAll(offset: number, pageSize: number, is3scale?: boolean): Observable<any> {
+    let url = this.url;
+
+    const options = {
       headers: httpOptions.headers,
       params: {
         offset: offset.toString(),
-        pageSize: pageSize.toString()
+        pageSize: pageSize.toString(),
       }
-    }).pipe(
+    };
+
+    if (is3scale) {
+      url = `/3scale${url}`;
+      options.params['user_key'] = '3227f77bda35677fe06859bff2eb0949';
+    }
+
+    return this.http.get<any>(url, options).pipe(
       catchError(res => {
         return this.handleError('getAll()', res);
       })

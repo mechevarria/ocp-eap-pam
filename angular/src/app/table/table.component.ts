@@ -28,7 +28,7 @@ export class TableComponent implements OnInit {
   load(): void {
     const offset = (this.currentPage - 1) * this.pageSize;
 
-    this.leaseService.getAll(offset, this.pageSize).subscribe(res => {
+    this.leaseService.getAll(offset, this.pageSize, true).subscribe(res => {
       this.leases = res.leases;
       this.count = res.count;
     });
