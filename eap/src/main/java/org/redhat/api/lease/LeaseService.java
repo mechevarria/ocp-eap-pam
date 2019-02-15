@@ -74,6 +74,15 @@ public class LeaseService {
 		return updated;
 	}
 
+	public LeaseModel updateProcessId(String id, String processInstanceId) {
+		LeaseModel lease = em.find(LeaseModel.class, Long.valueOf(id));
+		lease.setProcessInstanceId(Integer.valueOf(processInstanceId));
+		
+		em.merge(lease);
+
+		return lease;
+	}
+
 	public boolean deleteLease(String id) {
 		LeaseModel toDelete = em.find(LeaseModel.class, Long.valueOf(id));
 
