@@ -45,8 +45,10 @@ export class TableComponent implements OnInit {
         return 'badge-success';
       case 'Rejected':
         return 'badge-danger';
-      case 'Submitted':
+      case 'AutoApproved':
         return 'badge-info';
+      case 'Submitted':
+        return 'badge-warning';
       default:
         return 'badge-secondary';
     }
