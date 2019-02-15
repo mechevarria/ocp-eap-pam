@@ -31,9 +31,10 @@ export class DetailComponent implements OnInit {
     this.leaseService.update(this.lease).subscribe(() => {
       this.kieService.process(this.lease.id, this.lease.annualRent).subscribe(res => {
         if (res != null) {
-          this.messageService.success(`Process started with id ${res}`);
           this.lease.processInstanceId = res;
-          this.update();
+          this.leaseService.updateProcessId(this.lease.id, this.lease.processInstanceId).subscribe(() => {
+            this.messageService.success(`Process started with id ${this.lease.processInstanceId}`);
+          });
         }
       });
     });

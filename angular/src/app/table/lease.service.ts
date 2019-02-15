@@ -64,6 +64,22 @@ export class LeaseService {
     );
   }
 
+  updateProcessId(id: number, processInstanceId: number): Observable<Lease> {
+    const url = `${this.url}/process`;
+    const options = {
+      headers: httpOptions.headers,
+      params: {
+        id: id.toString(),
+        processInstanceId: processInstanceId.toString()
+      }
+    };
+    return this.http.put<Lease>(url, null, options).pipe(
+      catchError(res => {
+        return this.handleError('updateProcessId()', res);
+      })
+    );
+  }
+
   private handleError(method: string, res: HttpErrorResponse): Observable<any> {
     this.messageService.error(`${method} ${res.message}`);
     console.error(res.error);
