@@ -13,12 +13,7 @@ import { KieService } from './kie.service';
 export class DetailComponent implements OnInit {
   lease: Lease;
 
-  constructor(
-    private route: ActivatedRoute,
-    private leaseService: LeaseService,
-    private messageService: MessageService,
-    private kieService: KieService
-  ) {
+  constructor(private route: ActivatedRoute, private leaseService: LeaseService, private messageService: MessageService, private kieService: KieService) {
     this.lease = null;
   }
 
@@ -32,13 +27,15 @@ export class DetailComponent implements OnInit {
   }
 
   process(): void {
-    this.kieService.process(this.lease.id, this.lease.annualRent).subscribe(res => {
-      if (res != null) {
-        this.messageService.success(`Process started with id ${res}`);
-        this.lease.processInstanceId = res;
-        this.lease.status = 'Submitted';
-        this.update();
-      }
+    this.lease.status = 'Submitted';
+    this.leaseService.update(this.lease).subscribe(() => {
+      this.kieService.process(this.lease.id, this.lease.annualRent).subscribe(res => {
+        if (res != null) {
+          this.messageService.success(`Process started with id ${res}`);
+          this.lease.processInstanceId = res;
+          this.update();
+        }
+      });
     });
   }
 
