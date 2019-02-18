@@ -29,13 +29,17 @@ export class DetailComponent implements OnInit {
   process(): void {
     this.lease.status = 'Submitted';
     this.leaseService.update(this.lease).subscribe(() => {
-      this.kieService.process(this.lease.id, this.lease.annualRent).subscribe(res => {
-        if (res != null) {
-          this.lease.processInstanceId = res;
-          this.leaseService.updateProcessId(this.lease.id, this.lease.processInstanceId).subscribe(() => {
-            this.messageService.success(`Process started with id ${this.lease.processInstanceId}`);
-          });
-        }
+      this.kieService.getDecision(this.lease.annualRent).subscribe(res => {
+        const isAutoApproved: boolean = !res.result['execution-results'].results[0].value['org.jbpm.demo.Lease'].signOffRequired;
+        console.log(`isAutoApproved is ${isAutoApproved}`);
+        this.kieService.process(this.lease.id, this.lease.annualRent, isAutoApproved).subscribe(id => {
+          if (id != null) {
+            this.lease.processInstanceId = id;
+            this.leaseService.updateProcessId(this.lease.id, this.lease.processInstanceId).subscribe(() => {
+              this.messageService.success(`Process started with id ${this.lease.processInstanceId}`);
+            });
+          }
+        });
       });
     });
   }

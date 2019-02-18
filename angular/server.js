@@ -14,6 +14,7 @@ app.set('port', process.env.PORT || 8080);
 app.set('eap', process.env.EAP || 'http://eap-app:8080');
 app.set('kie', process.env.KIE || 'http://rhpam7-install-kieserver:8080');
 app.set('3scale', process.env.SCALE || 'https://lease-inventory-3scale-apicast-production.apim.apps.ocp.integration.redhatgov.io');
+app.set('rules', process.env.RULES || 'https://rhpam-demo-3scale-apicast-production.apim.apps.ocp.integration.redhatgov.io');
 
 app.use(compression());
 app.use(logger('combined'));
@@ -48,6 +49,21 @@ app.use(
     onProxyReq: restream,
     pathRewrite: {
       '^/3scale': ''
+    }
+  })
+);
+
+// proxy to rules
+app.use(
+  '/rules/*',
+  proxy({
+    target: app.get('rules'),
+    secure: false,
+    changeOrigin: true,
+    logLevel: 'debug',
+    onProxyReq: restream,
+    pathRewrite: {
+      '^/rules': ''
     }
   })
 );
