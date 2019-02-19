@@ -19,48 +19,17 @@ const containerId = 'lease_1.0.0';
 export class KieService {
   constructor(private messageService: MessageService, private http: HttpClient) {}
 
-  getDecision(annualRent: number): Observable<any> {
-    const url = `/rules/services/rest/server/containers/instances/itorders`;
-
-    const options = {
-      headers: httpOptions.headers,
-      params: {
-        'user_key': 'eac46b7e4ab9139ae0b574d58975e77d'
-      }
-    };
-
-    const body = {
-      lookup: 'itsession',
-      commands: [
-        {
-          insert: {
-            object: {
-              'org.jbpm.demo.Lease': { leaseAgreementAmount: annualRent }
-            },
-            'out-identifier': 'lease',
-            'return-object': true
-          }
-        },
-        {
-          'fire-all-rules': {}
-        }
-      ]
-    };
-
-    return this.http.post<any>(url, body, options).pipe(
-      catchError(res => {
-        return this.handleError('getDecision()', res);
-      })
-    );
-  }
-
-  process(id: number, annualRent: number, isAutoApproved: boolean): Observable<any> {
+  process(id: number, annualRent: number): Observable<any> {
     const url = `${baseUrl}/server/containers/${containerId}/processes/${processId}/instances`;
 
     const body = {
       id: id,
-      annualRent: annualRent,
-      isAutoApproved: isAutoApproved
+      lease: {
+        LeaseModel: {
+          annualRent: annualRent,
+          isAutoApproved: false
+        }
+      }
     };
     return this.http.post<any>(url, body, httpOptions).pipe(
       catchError(res => {
