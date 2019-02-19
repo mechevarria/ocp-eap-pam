@@ -25,7 +25,7 @@ export class KieService {
     const body = {
       id: id,
       lease: {
-        LeaseModel: {
+        'com.myspace.restcall.LeaseModel': {
           annualRent: annualRent,
           isAutoApproved: false
         }
