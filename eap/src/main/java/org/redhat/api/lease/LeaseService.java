@@ -16,7 +16,7 @@ public class LeaseService {
 	@PersistenceContext
 	private EntityManager em;
 
-	public List<LeaseModel> findByPage(String offset, String pageSize) {
+	public List<LeaseModel> search(String offset, String pageSize, String filter) {
 
 		TypedQuery<LeaseModel> query = em.createQuery("SELECT i FROM LeaseModel i", LeaseModel.class);
 

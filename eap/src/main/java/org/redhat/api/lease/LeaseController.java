@@ -22,9 +22,12 @@ public class LeaseController {
 	private LeaseService LeaseService;
 
 	@GET
-	public PageModel getPaged(@QueryParam("offset") String offset, @QueryParam("pageSize") String pageSize) {
+	public PageModel getPaged(
+		@QueryParam("offset") String offset,
+		@QueryParam("pageSize") String pageSize,
+		@QueryParam("filter") String filter) {
 
-		List<LeaseModel> leases = LeaseService.findByPage(offset, pageSize);
+		List<LeaseModel> leases = LeaseService.search(offset, pageSize, filter);
 		long count = LeaseService.getCount();
 
 		PageModel page = new PageModel(count, leases);
@@ -41,7 +44,8 @@ public class LeaseController {
 
 	@PUT
 	@Path("/process")
-	public LeaseModel updateProcessId(@QueryParam("id") String id, @QueryParam("processInstanceId") String processInstanceId) {
+	public LeaseModel updateProcessId(@QueryParam("id") String id,
+			@QueryParam("processInstanceId") String processInstanceId) {
 		LeaseModel lease = LeaseService.updateProcessId(id, processInstanceId);
 		return lease;
 	}

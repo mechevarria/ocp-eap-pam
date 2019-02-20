@@ -2,6 +2,9 @@ package org.redhat.api.lease;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +13,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
+@Indexed
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LeaseModel implements Serializable {
 
@@ -19,13 +23,24 @@ public class LeaseModel implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
+  @Field
   private String leaseNumber;
+
+  @Field
   private String city;
+
+  @Field
   private String address;
+
+  @Field
   private String state;
   private float lat;
   private float lon;
+
+  @Field
   private int annualRent;
+
+  @Field
   private String leaseName;
   private String status;
   private Date lastUpdateDate;
