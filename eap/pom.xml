@@ -169,6 +169,11 @@
             <artifactId>hibernate-search-orm</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <!-- Maven will append the version to the finalName (which is the name
