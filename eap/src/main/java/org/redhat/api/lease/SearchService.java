@@ -38,7 +38,7 @@ public class SearchService {
         org.apache.lucene.search.Query luceneQuery = qb
                 .keyword()
                 .wildcard()
-                .onFields("leaseNumber", "city", "address", "state", "leaseName", "annualRent")
+                .onFields("leaseNumber", "city", "address", "state", "leaseName", "annualRent", "status")
                 .matching(filter)
                 .createQuery();
 
