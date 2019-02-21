@@ -32,8 +32,10 @@ public class SearchService {
             log.info("Setting filter to wildcard");
             filter = "*";
         } else {
-            filter = "*" + filter.toLowerCase().trim() + "*";
+            filter = filter.toLowerCase().trim();
         }
+
+        log.info("filter = " + filter);
 
         org.apache.lucene.search.Query luceneQuery = qb
                 .keyword()
