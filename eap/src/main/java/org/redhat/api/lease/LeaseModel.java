@@ -45,6 +45,8 @@ public class LeaseModel implements Serializable {
 
   @Field
   private String leaseName;
+
+  @Field
   private String status;
   private Date lastUpdateDate;
   private int processInstanceId;
