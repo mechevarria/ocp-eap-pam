@@ -2,6 +2,19 @@
   <div class="card">
     <div class="card-header">Leases</div>
     <div class="card-body">
+      <form (ngSubmit)="load()" #userForm="ngForm">
+        <div class="d-flex flex-row mb-3">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><fa-icon [icon]="filterIcon"></fa-icon></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Filter" id="filter" name="filter" [(ngModel)]="filter" />
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit">Filter</button>
+            </div>
+          </div>
+        </div>
+      </form>
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover" width="100%">
           <thead>
@@ -10,6 +23,7 @@
               <th>Lease Number</th>
               <th>Lease Name</th>
               <th>Address</th>
+              <th>City</th>
               <th>State</th>
               <th>Annual Rent</th>
               <th>Status</th>
@@ -22,6 +36,7 @@
               <td (click)="showDetail(lease.id)">{{ lease.leaseNumber }}</td>
               <td (click)="showDetail(lease.id)">{{ lease.leaseName }}</td>
               <td (click)="showDetail(lease.id)">{{ lease.address }}</td>
+              <td (click)="showDetail(lease.id)">{{ lease.city }}</td>
               <td (click)="showDetail(lease.id)">{{ lease.state }}</td>
               <td (click)="showDetail(lease.id)">{{ lease.annualRent | currency }}</td>
               <td (click)="showDetail(lease.id)">

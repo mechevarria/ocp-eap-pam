@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LeaseService } from './lease.service';
 import { Lease } from './lease';
 import { Router } from '@angular/router';
+import { IconDefinition, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-table',
@@ -13,12 +14,16 @@ export class TableComponent implements OnInit {
   pageSize: number;
   currentPage: number;
   count: number;
+  filter: string;
+  filterIcon: IconDefinition;
 
   constructor(private leaseService: LeaseService, private router: Router) {
     this.leases = new Array();
     this.currentPage = 1;
     this.count = 0;
     this.pageSize = 10;
+    this.filter = '';
+    this.filterIcon = faSearch;
   }
 
   showDetail(id: number): void {
@@ -28,7 +33,7 @@ export class TableComponent implements OnInit {
   load(): void {
     const offset = (this.currentPage - 1) * this.pageSize;
 
-    this.leaseService.getAll(offset, this.pageSize, true).subscribe(res => {
+    this.leaseService.search(offset, this.pageSize, this.filter).subscribe(res => {
       this.leases = res.leases;
       this.count = res.count;
     });
