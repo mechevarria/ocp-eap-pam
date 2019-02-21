@@ -8,9 +8,9 @@ public class PageModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private List<LeaseModel> leases;
-    private long count;
+    private int count;
 
-    public PageModel(long count, List<LeaseModel> leases) {
+    public PageModel(int count, List<LeaseModel> leases) {
         this.count = count;
         this.leases = leases;
     }
@@ -25,11 +25,11 @@ public class PageModel implements Serializable {
         this.leases = leases;
     }
 
-    public long getCount() {
+    public int getCount() {
         return this.count;
     }
 
-    public void setCount(long count) {
+    public void setCount(int count) {
         this.count = count;
     }
 

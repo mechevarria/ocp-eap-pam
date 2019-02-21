@@ -2,9 +2,11 @@ package org.redhat.api.lease;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.SortableField;
+import org.hibernate.search.bridge.builtin.IntegerBridge;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,6 +40,8 @@ public class LeaseModel implements Serializable {
   private float lat;
   private float lon;
 
+  @Field
+  @FieldBridge(impl = IntegerBridge.class)
   private int annualRent;
 
   @Field
