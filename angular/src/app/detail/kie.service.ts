@@ -11,7 +11,7 @@ const httpOptions = {
 };
 const baseUrl = '/services/rest';
 const processId = 'approval';
-const containerId = 'lease_1.0.0';
+const containerId = 'lease_1.0.0-SNAPSHOT';
 
 @Injectable({
   providedIn: 'root'
