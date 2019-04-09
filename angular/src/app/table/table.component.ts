@@ -10,21 +10,14 @@ import { IconDefinition, faSearch } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  leases: Lease[];
-  pageSize: number;
-  currentPage: number;
-  count: number;
-  filter: string;
-  filterIcon: IconDefinition;
+  leases: Lease[] = new Array();
+  pageSize = 10;
+  currentPage = 1;
+  count = 0;
+  filter = '';
+  filterIcon: IconDefinition = faSearch;
 
-  constructor(private leaseService: LeaseService, private router: Router) {
-    this.leases = new Array();
-    this.currentPage = 1;
-    this.count = 0;
-    this.pageSize = 10;
-    this.filter = '';
-    this.filterIcon = faSearch;
-  }
+  constructor(private leaseService: LeaseService, private router: Router) {}
 
   showDetail(id: number): void {
     this.router.navigate(['/home/detail'], { queryParams: { id: id } });
@@ -33,7 +26,7 @@ export class TableComponent implements OnInit {
   load(): void {
     const offset = (this.currentPage - 1) * this.pageSize;
 
-    this.leaseService.search(offset, this.pageSize, this.filter).subscribe(res => {
+    this.leaseService.proxySearch(offset, this.pageSize, this.filter).subscribe(res => {
       this.leases = res.leases;
       this.count = res.count;
     });

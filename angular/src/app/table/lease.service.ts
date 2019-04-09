@@ -14,6 +14,7 @@ const httpOptions = {
 })
 export class LeaseService {
   private url = '/jboss-api/lease';
+  private proxyUrl = '/3scale';
 
   constructor(private messageService: MessageService, private http: HttpClient) {}
 
@@ -32,6 +33,25 @@ export class LeaseService {
     return this.http.get<any>(url, options).pipe(
       catchError(res => {
         return this.handleError('search()', res);
+      })
+    );
+  }
+
+  proxySearch(offset: number, pageSize: number, filter: string): Observable<any> {
+    const url = `${this.proxyUrl}/jboss-api/lease/search`;
+
+    const options = {
+      headers: httpOptions.headers,
+      params: {
+        offset: offset.toString(),
+        pageSize: pageSize.toString(),
+        filter: filter,
+        user_key: '3227f77bda35677fe06859bff2eb0949'
+      }
+    };
+    return this.http.get<any>(url, options).pipe(
+      catchError(res => {
+        return this.handleError('proxySearch()', res);
       })
     );
   }
