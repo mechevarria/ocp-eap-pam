@@ -21,11 +21,8 @@
               <td>{{ task.status }}</td>
               <td>{{ task.created | date }}</td>
               <td>
-                <button *ngIf="task.status === 'Ready'" (click)="claim(task.id)" type="button" class="btn btn-primary mr-2">
+                <button *ngIf="task.status === 'Ready'" (click)="claimAndStart(task.id)" type="button" class="btn btn-primary mr-2">
                   Claim
-                </button>
-                <button *ngIf="task.status === 'Reserved'" (click)="start(task.id)" type="button" class="btn btn-primary mr-2">
-                  Start
                 </button>
                 <button *ngIf="task.status === 'InProgress'" (click)="go(task.id)" type="button" class="btn btn-success">
                   Go

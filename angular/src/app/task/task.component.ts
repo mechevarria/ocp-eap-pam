@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { KieService } from '../detail/kie.service';
 import { Task } from './task';
 import { MessageService } from '../message/message.service';
-import { load } from '@angular/core/src/render3';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,17 +13,12 @@ export class TaskComponent implements OnInit {
   tasks: Task[];
   constructor(private kieService: KieService, private messageService: MessageService, private router: Router) {}
 
-  claim(taskId: number): void {
-    this.kieService.claim(taskId).subscribe(res => {
-      this.messageService.info(`Task ${taskId} claimed`);
-      this.load();
-    });
-  }
-
-  start(taskId: number): void {
-    this.kieService.start(taskId).subscribe(res => {
-      this.messageService.info(`Task ${taskId} started`);
-      this.go(taskId);
+  claimAndStart(taskId: number): void {
+    this.kieService.claim(taskId).subscribe(() => {
+      this.kieService.start(taskId).subscribe(() => {
+        this.messageService.info(`Task ${taskId} started`);
+        this.go(taskId);
+      });
     });
   }
 
